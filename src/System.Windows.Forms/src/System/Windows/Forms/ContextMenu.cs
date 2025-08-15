@@ -3,5 +3,5 @@
 
 namespace System.Windows.Forms
 {
-    public class ContextMenu : ToolStripDropDownMenu;
+    public class ContextMenu : ToolStripDropDownMenu {}
 }
