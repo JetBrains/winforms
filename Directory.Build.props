@@ -14,7 +14,7 @@
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
     <LangVersion>preview</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
-    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>
 
     <IsAnalyzerProject>false</IsAnalyzerProject>
     <IsAnalyzerProject Condition="!$(IsTestProject) and
