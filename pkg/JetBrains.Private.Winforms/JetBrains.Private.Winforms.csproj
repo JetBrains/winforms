@@ -1,0 +1,73 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" InitialTargets="SetOutputItemType">
+  <PropertyGroup>
+    <TargetFramework>$(NetCurrent)</TargetFramework>
+
+    <!-- Suppress some nuget warnings that are breaking our build until https://github.com/dotnet/arcade/issues/4337 is resolved -->
+    <NoWarn>$(NoWarn);NU5100;NU5131;NU5128</NoWarn>
+
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Suppress creation of contentFiles directory -->
+    <ContentTargetFolders>.\runtimes\any\lib\net6.0</ContentTargetFolders>
+  </PropertyGroup>
+
+  <!-- This is a Packaging Project -->
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <IsShipping>false</IsShipping>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Don't include this project in the build output -->
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <PublishWindowsPdb>false</PublishWindowsPdb>
+    <IncludeSymbols>false</IncludeSymbols>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Disable a VS-specific target that is failing when building this csproj -->
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+  </PropertyGroup>
+
+  <!-- nuspec properties -->
+  <PropertyGroup>
+    <PackageDescription>Private Windows Forms package, public consumption is not supported</PackageDescription>
+    <PackageTags>WinForms Windows Forms</PackageTags>
+  </PropertyGroup>
+
+  <!-- Force project references to avoid packaging their dependencies -->
+  <ItemDefinitionGroup>
+    <ProjectReference>
+      <PrivateAssets>All</PrivateAssets>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+
+  <!-- For other packaging configurations refer to eng\packageContent.targets -->
+  <ItemGroup>
+  </ItemGroup>
+
+  <!-- Any projects referenced here will have their outputs automatically put into the package -->
+  <!-- If you add a new csproj, and you want the outputs in the package, you must add it here -->
+  <ItemGroup>
+    <!-- Reference and Source System.Windows.Forms -->
+    <ProjectReference Include="..\..\src\System.Windows.Forms\src\System.Windows.Forms.csproj" />
+  </ItemGroup>
+
+  <!-- Force the output item type for all project references to "TfmSpecificPackageFile", which makes them get packed -->
+  <Target Name="SetOutputItemType">
+    <ItemGroup>
+      <ProjectReference>
+        <OutputItemType>TfmSpecificPackageFile</OutputItemType>
+<!--        <Targets>GetPackageContent</Targets>-->
+        <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      </ProjectReference>
+    </ItemGroup>
+  </Target>
+
+  <!-- Call custom targets (defined below) wh0en creating the package -->
+  <PropertyGroup>
+    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificBuildOutput);ResolveReferences;</TargetsForTfmSpecificContentInPackage>
+  </PropertyGroup>
+
+</Project>
