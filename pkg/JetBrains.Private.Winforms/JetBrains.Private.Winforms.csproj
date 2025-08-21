@@ -8,14 +8,13 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <!-- Suppress creation of contentFiles directory -->
-    <ContentTargetFolders>.\runtimes\any\lib\net6.0</ContentTargetFolders>
+    <ContentTargetFolders>.\runtimes\any\lib\$(TargetFramework)</ContentTargetFolders>
   </PropertyGroup>
 
   <!-- This is a Packaging Project -->
   <PropertyGroup>
     <IsPackable>true</IsPackable>
-    <IsShipping>false</IsShipping>
+    <IsShipping>true</IsShipping>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -45,6 +44,7 @@
 
   <!-- For other packaging configurations refer to eng\packageContent.targets -->
   <ItemGroup>
+    <Content Include="_._" Pack="true" PackagePath="lib\net\_._" />
   </ItemGroup>
 
   <!-- Any projects referenced here will have their outputs automatically put into the package -->
