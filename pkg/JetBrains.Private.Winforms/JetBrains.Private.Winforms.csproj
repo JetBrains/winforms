@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <ContentTargetFolders>.\runtimes\any\lib\$(TargetFramework)</ContentTargetFolders>
+    <ContentTargetFolders>.\runtimes\any\lib\netstandard2.1</ContentTargetFolders>
   </PropertyGroup>
 
   <!-- This is a Packaging Project -->
